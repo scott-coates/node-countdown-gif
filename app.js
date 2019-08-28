@@ -4,12 +4,28 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const compression = require('compression')
 
 const tmpDir = __dirname + '/tmp/';
 const publicDir = __dirname + '/public/';
 
 // canvas generator
 const CountdownGenerator = require('./countdown-generator');
+
+// https://github.com/expressjs/compression/issues/82
+app.use(
+  compression({
+    filter: function shouldCompress(req, res) {
+      if (/^image\//.test(res.getHeader("Content-Type"))) {
+        // compress any image format
+        return true;
+      }
+
+      // fallback to standard filter function
+      return compression.filter(req, res);
+    }
+  })
+);
 
 app.use(express.static(publicDir));
 app.use(express.static(tmpDir));
