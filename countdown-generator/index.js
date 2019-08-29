@@ -20,8 +20,8 @@ module.exports = {
      */
     init: function(time, width=200, height=200, color='ffffff', bg='000000', name='default', frames=30, cb){
         // Set some sensible upper / lower bounds
-        this.width = this.clamp(width, 150, 500);
-        this.height = this.clamp(height, 150, 500);
+        this.width = this.clamp(width, 20, 500);
+        this.height = this.clamp(height, 20, 500);
         this.frames = this.clamp(frames, 1, 90);
         
         this.bg = '#' + bg;
