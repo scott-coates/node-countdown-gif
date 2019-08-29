@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const GIFEncoder = require('gifencoder');
-const Canvas = require('canvas');
+const { createCanvas } = require("canvas");
 const moment = require('moment');
 
 module.exports = {
@@ -33,7 +33,7 @@ module.exports = {
         this.halfHeight = Number(this.height / 2);
         
         this.encoder = new GIFEncoder(this.width, this.height);
-        this.canvas = new Canvas(this.width, this.height);
+        this.canvas = createCanvas(this.width, this.height);
         this.ctx = this.canvas.getContext('2d');
         
         // calculate the time difference (if any)
