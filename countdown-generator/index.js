@@ -3,7 +3,7 @@
 const fs = require('fs');
 const GIFEncoder = require('gifencoder');
 const { createCanvas } = require("canvas");
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 module.exports = {
     /**
@@ -17,7 +17,7 @@ module.exports = {
      * @param {number} frames
      * @param {requestCallback} cb - The callback that is run once complete.
      */
-    init: function(time, width=200, height=200, color='ffffff', bg='000000', name, frames=30, cb){
+    init: function(endDate, endTime, timezone="UTC", width=200, height=200, color='ffffff', bg='000000', name, frames=30, cb){
         // Set some sensible upper / lower bounds
         this.width = this.clamp(width, 20, 500);
         this.height = this.clamp(height, 20, 500);
@@ -36,7 +36,7 @@ module.exports = {
         this.ctx = this.canvas.getContext('2d');
         
         // calculate the time difference (if any)
-        let timeResult = this.time(time);
+        let timeResult = this.time(endDate, endTime, timezone);
         
         // start the gif encoder
         this.encode(timeResult, cb);
@@ -57,9 +57,9 @@ module.exports = {
      * @param {string} timeString
      * @returns {string|Object} - return either the date passed string, or a valid moment duration object
      */
-    time: function (timeString) {
+    time: function (endDate, endTime, tz) {
         // grab the current and target time
-        let target = moment(timeString);
+        let target = moment.tz(endDate + "T" + endTime, tz);
         let current = moment();
         
         // difference between the 2 (in ms)

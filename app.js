@@ -37,15 +37,16 @@ app.get('/', function (req, res) {
 
 // generate and download the gif
 app.get('/generate', function (req, res) {
-    let {time, width, height, color, bg, frames} = req.query;
+    let {time, timezone, color, bg, frames} = req.query;
 
     if(!time){
         throw Error('Time parameter is required.');
     }
 
     const key = req.query.key || 'default'; 
+    const width = "400", height =  "80";
 
-    CountdownGenerator.init(time, width, height, color, bg, key, frames, () => {
+    CountdownGenerator.init(time, timezone, width, height, color, bg, key, frames, () => {
         let filePath = tmpDir + key + '.gif';
         res.download(filePath);
     });
@@ -53,14 +54,18 @@ app.get('/generate', function (req, res) {
 
 // serve the gif to a browser
 app.get('/serve', function (req, res) {
-    let {time, width, height, color, bg, name, frames} = req.query;
+    let {end_date, end_time, timezone, color, bg, frames} = req.query;
 
-    if(!time){
-        throw Error('Time parameter is required.');
+    if(!end_date){
+        throw Error('end_date parameter is required.');
     }
+    
+    timezone = timezone || 'UTC';
+    const key = req.query.key || 'default'; 
+    const width = "400", height =  "80";
 
-    CountdownGenerator.init(time, width, height, color, bg, name, frames, () => {
-        let filePath = tmpDir + name + '.gif';
+    CountdownGenerator.init(end_date, end_time, timezone, width, height, color, bg, key, frames, () => {
+        let filePath = tmpDir + key + '.gif';
         res.sendFile(filePath);
     });
 });

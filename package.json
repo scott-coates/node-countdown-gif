@@ -14,7 +14,8 @@
     "compression": "^1.7.4",
     "express": "^4.13.4",
     "gifencoder": "^2.0.1",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "moment-timezone": "^0.5.26"
   },
   "engines": {
     "node": "10.0.0"
