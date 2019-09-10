@@ -37,14 +37,16 @@ app.get('/', function (req, res) {
 
 // generate and download the gif
 app.get('/generate', function (req, res) {
-    let {time, width, height, color, bg, name, frames} = req.query;
+    let {time, width, height, color, bg, frames} = req.query;
 
     if(!time){
         throw Error('Time parameter is required.');
     }
 
-    CountdownGenerator.init(time, width, height, color, bg, name, frames, () => {
-        let filePath = tmpDir + name + '.gif';
+    const key = req.query.key || 'default'; 
+
+    CountdownGenerator.init(time, width, height, color, bg, key, frames, () => {
+        let filePath = tmpDir + key + '.gif';
         res.download(filePath);
     });
 });

@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 const GIFEncoder = require('gifencoder');
 const { createCanvas } = require("canvas");
 const moment = require('moment');
@@ -18,7 +17,7 @@ module.exports = {
      * @param {number} frames
      * @param {requestCallback} cb - The callback that is run once complete.
      */
-    init: function(time, width=200, height=200, color='ffffff', bg='000000', name='default', frames=30, cb){
+    init: function(time, width=200, height=200, color='ffffff', bg='000000', name, frames=30, cb){
         // Set some sensible upper / lower bounds
         this.width = this.clamp(width, 20, 500);
         this.height = this.clamp(height, 20, 500);
