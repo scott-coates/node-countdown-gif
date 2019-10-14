@@ -59,7 +59,10 @@ module.exports = {
      */
     time: function (endDate, endTime, tz) {
         // grab the current and target time
-        let target = moment.tz(endDate + "T" + endTime, tz);
+        // this string handlesthe caseof iso or slahes
+        var endDateString = endDate + "T" + endTime;
+        var parseFormats = ["MM/DD/YYYYThh:mm", "YYYY-MM-DDThh:mm"];
+        let target = moment.tz(endDateString, parseFormats, tz);
         let current = moment();
         
         // difference between the 2 (in ms)
