@@ -1,33 +1,30 @@
-# Gif countdown generator
+# Countdown GIF generator for emails and whatnot
 
-The very simple app I have created allows you to generate a countdown timer animated gif depending on the URL parameters you provide. [View demo](https://date-gif.herokuapp.com/).
+Simple library to generate countdown GIFs in nodejs using Cairo/Canvas implementation usable for on-demand image generation.
 
-## URL Parameters (*required)
-
-* **time*** - Date &amp; time when your countdown will end [e.g. 2016-06-24T20:35]
+## Image Options
 * **frames** - number of frames (also number of seconds) the countdown will run before looping [defaults to 30]
 * **width** - width in pixels [defaults to 200]
 * **height** - height in pixels [defaults to 200]
 * **bg** - hex colour code for the background [defaults to 000000]
 * **color** - hex colour code for the text [defaults to ffffff]
-* **name** - filename used for the generated gif [defaults to 'default']
-            
-## Generate Examples
 
-These trigger a download. Change the URL from `/generate` to `/serve` when used in an image tag.
+## Timer value
+* **end** - Any momentjs parseable string, ideally JSON.stringify(new Date()) format [e.g. 2016-06-24T20:35:00.000Z]
 
-* **Basic**: [/generate?time=2018-09-24T20:35](https://date-gif.herokuapp.com/generate?time=2018-09-24T20:35&name=ex1)
-* **Custom dimensions**: [/generate?time=2018-09-24T20:35&width=300&height=150](https://date-gif.herokuapp.com/generate?time=2018-09-24T20:35&width=300&height=150&name=ex2)
-* **Custom colours**: [/generate?time=2018-09-24T20:35&bg=028900&color=adff00](https://date-gif.herokuapp.com/generate?time=2018-09-24T20:35&bg=028900&color=adff00&name=ex3)
-* **Custom name & frames**: [/generate?time=2018-09-24T20:35&name=awesome-gif&frames=20](https://date-gif.herokuapp.com/generate?time=2018-09-24T20:35&name=awesome-gif&frames=20)
+## More fonts
+via ```import { registerFonr } from 'canvas'
+registerFont(path, 'name')
+ImageOptions.familyName = 'name'```
 
-## Versions
 
-Tested with and designed for:
-
-* node 6.0.0
-* cairo 1.8.6
+## Samples
+Attached webserver offers generating GIF into file or as direct output of express response (the fastest method of serving)
 
 ## License
 
 [MIT](LICENSE)
+
+## Inspired by
+* [scottccoates](https://github.com/scottccoates/node-countdown-gif)
+* [Nooshu](https://github.com/Nooshu/node-countdown-gif)
